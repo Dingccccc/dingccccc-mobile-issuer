@@ -1,0 +1,18 @@
+{
+  "name": "Banana Desktop 移动签发器",
+  "short_name": "Banana 签发",
+  "description": "Banana Desktop 离线许可证签发器",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f5",
+  "theme_color": "#176b4d",
+  "icons": [
+    {
+      "src": "./issuer-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
