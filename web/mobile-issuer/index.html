@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#176b4d">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'self'; manifest-src 'self'"
+  >
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./issuer-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Banana Desktop 签发器</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <img src="./issuer-mark.svg" width="40" height="40" alt="">
+      <div>
+        <h1>Banana Desktop</h1>
+        <p>移动签发器</p>
+      </div>
+    </div>
+    <button id="lock-button" class="quiet-button" type="button">锁定</button>
+  </header>
+
+  <main>
+    <p id="message" class="message" role="status" aria-live="polite" hidden></p>
+
+    <section id="key-section" class="section">
+      <div class="section-heading">
+        <div>
+          <h2>解锁签发密钥</h2>
+          <p id="key-status">尚未选择密钥</p>
+        </div>
+        <button id="remove-key-button" class="danger-link" type="button" hidden>移除</button>
+      </div>
+
+      <label class="file-picker">
+        <span>选择 .bdkey 文件</span>
+        <input id="key-file" type="file" accept=".bdkey,application/json">
+      </label>
+
+      <label class="field">
+        <span>手机密钥密码</span>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          autocapitalize="none"
+          spellcheck="false"
+        >
+      </label>
+
+      <label class="check-row">
+        <input id="remember-key" type="checkbox" checked>
+        <span>在此设备保存加密文件</span>
+      </label>
+
+      <button id="unlock-button" class="primary-button" type="button">解锁</button>
+    </section>
+
+    <section id="issuer-section" class="section" hidden>
+      <div class="section-heading">
+        <div>
+          <h2>生成激活码</h2>
+          <p id="key-id"></p>
+        </div>
+      </div>
+
+      <label class="field">
+        <span>客户机器码</span>
+        <input
+          id="machine-code"
+          type="text"
+          inputmode="text"
+          autocapitalize="characters"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX"
+        >
+      </label>
+
+      <fieldset class="plans">
+        <legend>套餐</legend>
+        <label><input type="radio" name="plan" value="trial"><span>试用</span></label>
+        <label><input type="radio" name="plan" value="week"><span>7 天</span></label>
+        <label><input type="radio" name="plan" value="month" checked><span>30 天</span></label>
+        <label><input type="radio" name="plan" value="year"><span>365 天</span></label>
+      </fieldset>
+
+      <button id="issue-button" class="primary-button" type="button">生成激活码</button>
+
+      <div id="output-section" class="output" hidden>
+        <label class="field">
+          <span>激活码</span>
+          <textarea id="activation-code" readonly rows="5"></textarea>
+        </label>
+        <p id="expires-at"></p>
+        <div class="actions">
+          <button id="copy-button" type="button">复制</button>
+          <button id="share-button" type="button">分享</button>
+          <button id="download-button" type="button">保存文件</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section history-section">
+      <div class="section-heading">
+        <div>
+          <h2>本机签发记录</h2>
+          <p>记录仅保存在当前浏览器</p>
+        </div>
+        <button id="export-ledger-button" class="quiet-button" type="button">导出</button>
+      </div>
+      <p id="empty-history" class="empty-state">暂无记录</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>签发时间</th>
+              <th>套餐</th>
+              <th>机器码</th>
+              <th>到期时间</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
