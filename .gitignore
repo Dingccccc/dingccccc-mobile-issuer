@@ -1,0 +1,10 @@
+# Never publish issuer secrets or customer records.
+*.pem
+*.key
+*.p8
+*.pk8
+*.bdkey
+*.bdlic
+*.sqlite3
+*.db
+*.log
